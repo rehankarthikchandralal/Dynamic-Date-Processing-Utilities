@@ -66,15 +66,27 @@ class DDPU():
         return True
 
 
-    # def days_between(year1, month1, day1, year2, month2, day2):
-    #     """
-    #     Inputs:
-    #     year1  - an integer representing the year of the first date
-    #     month1 - an integer representing the month of the first date
-    #     day1   - an integer representing the day of the first date
-    #     year2  - an integer representing the year of the second date
-    #     month2 - an integer representing the month of the second date
-    #     day2   - an integer representing the day of the second date
+    def days_between(self,year1, month1, day1, year2, month2, day2):
+            """
+            Returns the number of days between two dates. Returns 0 if either date is invalid 
+            or if the second date is earlier than the first.
+            """
+            # Check if both dates are valid
+            if not (self.is_valid_date(year1, month1, day1) and self.is_valid_date(year2, month2, day2)):
+                print("ERROR:INVALID Date")
+                return None
+            
+            # Create datetime.date objects for both dates
+            date1 = datetime.date(year1, month1, day1)
+            date2 = datetime.date(year2, month2, day2)
+            
+            # If the second date is earlier than the first, return 0
+            if date2 < date1:
+                print("ERROR:Second date is earlier than first")
+                return None
+            
+            # Return the difference in days
+            return (date2 - date1).days
 
     #     Returns:
     #     The number of days from the first date to the second date.
@@ -96,12 +108,16 @@ class DDPU():
     #     date is in the future.
     #     """
     #     return 0
-    
+
 test = DDPU()
 result_days=test.days_in_month(2023,12)
 print(result_days)
 
 print(test.is_valid_date(2022,11,3))
+print(test.days_between(2023, 1, 1, 2023, 1, 10))  # Output: 9
+print(test.days_between(2023, 2, 28, 2023, 3, 5))  # Output: 5
+print(test.days_between(2023, 2, 28, 2023, 2, 25))  # Output: 0 (second date is earlier)
+print(test.days_between(2023, 2, 30, 2023, 3, 1))  # Output: 0 (invalid first date)
 
     
 
