@@ -26,6 +26,7 @@ class DDPU():
         else:
             print("ERROR:INVALID input",month)
             return None
+        
         # Start date for the given month and year
         start_date = datetime.date(year, month, 1)
         
@@ -38,7 +39,6 @@ class DDPU():
         # The difference in days between end_date and start_date
         days = (end_date - start_date).days
 
-        
         return days
 
 
@@ -67,10 +67,12 @@ class DDPU():
 
 
     def days_between(self,year1, month1, day1, year2, month2, day2):
+            
             """
             Returns the number of days between two dates. Returns 0 if either date is invalid 
             or if the second date is earlier than the first.
             """
+
             # Check if both dates are valid
             if not (self.is_valid_date(year1, month1, day1) and self.is_valid_date(year2, month2, day2)):
                 print("ERROR:INVALID Date")
@@ -87,37 +89,46 @@ class DDPU():
             
             # Return the difference in days
             return (date2 - date1).days
-
-    #     Returns:
-    #     The number of days from the first date to the second date.
-    #     Returns 0 if either date is invalid or the second date is
-    #     before the first date.
-    #     """
-    #     return 0
-
-    # def age_in_days(year, month, day):
-    #     """
-    #     Inputs:
-    #     year  - an integer representing the birthday year
-    #     month - an integer representing the birthday month
-    #     day   - an integer representing the birthday day
-
-    #     Returns:
-    #     The age of a person with the input birthday as of today.
-    #     Returns 0 if the input date is invalid or if the input
-    #     date is in the future.
-    #     """
-    #     return 0
-
-test = DDPU()
-result_days=test.days_in_month(2023,12)
-print(result_days)
-
-print(test.is_valid_date(2022,11,3))
-print(test.days_between(2023, 1, 1, 2023, 1, 10))  # Output: 9
-print(test.days_between(2023, 2, 28, 2023, 3, 5))  # Output: 5
-print(test.days_between(2023, 2, 28, 2023, 2, 25))  # Output: 0 (second date is earlier)
-print(test.days_between(2023, 2, 30, 2023, 3, 1))  # Output: 0 (invalid first date)
-
     
 
+    def age_in_days(self,year, month, day):
+            
+            """
+            Returns the age of a person as of today in days. Returns 0 if the date is invalid 
+            or if the input date is in the future.
+            """
+
+            # Check if the input date is valid
+            if not self.is_valid_date(year, month, day):
+                print("ERROR:INVALID Date")                
+                return None
+            
+            # Get today's date
+            today = datetime.date.today()
+            
+            # Check if the input date is in the future
+            birth_date = datetime.date(year, month, day)
+            if birth_date > today:
+                print("ERROR:input date is in the future")
+                return None
+            
+            # Use the days_between function to calculate the age in days
+            return self.days_between(year, month, day, today.year, today.month, today.day)
+    
+
+test = DDPU()
+
+
+#Test Code
+
+
+# result_days=test.days_in_month(2023,12)
+# print(result_days)
+# print(test.is_valid_date(2022,11,3))
+# print(test.days_between(2023, 1, 1, 2023, 1, 10))  # Output: 9
+# print(test.days_between(2023, 2, 28, 2023, 3, 5))  # Output: 5
+# print(test.days_between(2023, 2, 28, 2023, 2, 25))  # Output: None (second date is earlier)
+# print(test.days_between(2023, 2, 30, 2023, 3, 1))  # Output: None (invalid first date)
+# print(test.age_in_days(2000, 1, 1))  # Output: the number of days from Jan 1, 2000 to today
+# print(test.age_in_days(2025, 1, 1))  # Output: None (future date)
+# print(test.age_in_days(2023, 2, 30)) # Output: None (invalid date)
