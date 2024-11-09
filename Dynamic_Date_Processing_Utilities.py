@@ -4,7 +4,7 @@ import datetime
 class DDPU():
 
 
-    def days_in_month(year, month):
+    def days_in_month(self,year, month):
 
         """
         Inputs:
@@ -37,24 +37,34 @@ class DDPU():
         
         # The difference in days between end_date and start_date
         days = (end_date - start_date).days
-        print(days)
+
         
         return days
 
-    result_days=days_in_month(2023,12)
-    print(result_days)
-    # def is_valid_date(year, month, day):
-    #     """
-    #     Inputs:
-    #     year  - an integer representing the year
-    #     month - an integer representing the month
-    #     day   - an integer representing the day
 
-    #     Returns:
-    #     True if year-month-day is a valid date and
-    #     False otherwise
-    #     """
-    #     return False
+    def is_valid_date(self,year, month, day):
+
+        """
+        True if year-month-day is a valid date and False otherwise
+        """
+
+        # Check if the year is within the valid range
+        if not (datetime.MINYEAR <= year <= datetime.MAXYEAR):
+            return False
+        
+        # Check if the month is valid (between 1 and 12)
+        if month < 1 or month > 12:
+            return False
+
+        # Check if the day is valid for the given month and year
+        days_in_given_month = self.days_in_month(year, month)
+     
+        if day < 1 or day > days_in_given_month:
+            return False
+
+        # If all checks pass, return True
+        return True
+
 
     # def days_between(year1, month1, day1, year2, month2, day2):
     #     """
@@ -86,5 +96,12 @@ class DDPU():
     #     date is in the future.
     #     """
     #     return 0
+    
+test = DDPU()
+result_days=test.days_in_month(2023,12)
+print(result_days)
 
+print(test.is_valid_date(2022,11,3))
+
+    
 
