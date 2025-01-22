@@ -1,20 +1,6 @@
 import datetime
-
-
 class DDPU():
-
-
     def days_in_month(self,year, month):
-
-        """
-        Inputs:
-        year  - an integer between 
-        representing the year
-        month - an integer between 1 and 12 representing the month
-
-        Returns:
-        The number of days in the input month.
-        """
 
         if ((year > datetime.MINYEAR) & (year < datetime.MAXYEAR)):
             print("The year is",year)
@@ -26,7 +12,7 @@ class DDPU():
         else:
             print("ERROR:INVALID input",month)
             return None
-        
+            
         # Start date for the given month and year
         start_date = datetime.date(year, month, 1)
         
@@ -41,12 +27,7 @@ class DDPU():
 
         return days
 
-
     def is_valid_date(self,year, month, day):
-
-        """
-        True if year-month-day is a valid date and False otherwise
-        """
 
         # Check if the year is within the valid range
         if not (datetime.MINYEAR <= year <= datetime.MAXYEAR):
@@ -65,13 +46,7 @@ class DDPU():
         # If all checks pass, return True
         return True
 
-
     def days_between(self,year1, month1, day1, year2, month2, day2):
-            
-            """
-            Returns the number of days between two dates. Returns 0 if either date is invalid 
-            or if the second date is earlier than the first.
-            """
 
             # Check if both dates are valid
             if not (self.is_valid_date(year1, month1, day1) and self.is_valid_date(year2, month2, day2)):
@@ -90,14 +65,8 @@ class DDPU():
             # Return the difference in days
             return (date2 - date1).days
     
-
     def age_in_days(self,year, month, day):
             
-            """
-            Returns the age of a person as of today in days. Returns 0 if the date is invalid 
-            or if the input date is in the future.
-            """
-
             # Check if the input date is valid
             if not self.is_valid_date(year, month, day):
                 print("ERROR:INVALID Date")                
@@ -115,13 +84,9 @@ class DDPU():
             # Use the days_between function to calculate the age in days
             return self.days_between(year, month, day, today.year, today.month, today.day)
     
-
 test = DDPU()
 
-
 #Test Code
-
-
 # result_days=test.days_in_month(2023,12)
 # print(result_days)
 # print(test.is_valid_date(2022,11,3))
